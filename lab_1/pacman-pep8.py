@@ -43,7 +43,12 @@ def translate_maze_to_screen(in_coords, in_size=32):
 class GameObject:
     """Base class for all game objects in the Pacman game."""
 
-    def __init__(self, in_surface, x, y, in_size: int, in_color=(255, 0, 0), is_circle: bool = False):
+    def __init__(
+            self, 
+            in_surface, 
+            x, y, 
+            in_size: int, in_color=(255, 0, 0), 
+            is_circle: bool = False):
         """Returns a game object.
 
         Args:
@@ -66,13 +71,24 @@ class GameObject:
     def draw(self):
         """Draw the game object on the surface."""
         if self._circle:
-            pygame.draw.circle(self._surface, self._color, (self.x, self.y), self._size)
+            pygame.draw.circle(
+                self._surface, 
+                self._color, 
+                (self.x, self.y), 
+                self._size)
         else:
-            rect_object = pygame.Rect(self.x, self.y, self._size, self._size)
-            pygame.draw.rect(self._surface, self._color, rect_object, border_radius=4)
+            rect_object = pygame.Rect(
+                self.x, self.y, 
+                self._size, self._size)
+            pygame.draw.rect(
+                self._surface, 
+                self._color, 
+                rect_object, 
+                border_radius=4)
 
     def tick(self):
-        """Update the game object state (to be implemented in subclasses)."""
+        """Update the game object state 
+        (to be implemented in subclasses)."""
         pass
 
     def get_shape(self):
@@ -237,7 +253,12 @@ class GameRenderer:
 class MovableObject(GameObject):
     """Class representing a movable object in the game."""
 
-    def __init__(self, in_surface, x, y, in_size: int, in_color=(255, 0, 0), is_circle: bool = False):
+    def __init__(
+            self, 
+            in_surface, 
+            x, y, 
+            in_size: int, in_color=(255, 0, 0), 
+            is_circle: bool = False):
         """Returns a movable object.
 
         Args:
@@ -261,7 +282,8 @@ class MovableObject(GameObject):
         Returns:
             tuple: The next location (x, y) or None if the queue is empty.
         """
-        return None if len(self.location_queue) == 0 else self.location_queue.pop(0)
+        if len(self.location_queue) == 0: return None
+        else: self.location_queue.pop(0)
 
     def set_direction(self, in_direction):
         """Set the current direction of movement.
@@ -281,7 +303,11 @@ class MovableObject(GameObject):
         Returns:
             bool: True if there is a collision, False otherwise.
         """
-        collision_rect = pygame.Rect(in_position[0], in_position[1], self._size, self._size)
+        collision_rect = pygame.Rect(
+            in_position[0], 
+            in_position[1], 
+            self._size, 
+            self._size)
         collides = False
         walls = self._renderer.get_walls()
         for wall in walls:
@@ -297,7 +323,8 @@ class MovableObject(GameObject):
             in_direction (Direction): The direction to check.
 
         Returns:
-            tuple: A tuple containing a boolean indicating collision and the desired position.
+            tuple: A tuple containing a boolean 
+            indicating collision and the desired position.
         """
         desired_position = (0, 0)
         if in_direction == Direction.NONE:
@@ -327,7 +354,8 @@ class MovableObject(GameObject):
         self.automatic_move(self.current_direction)
 
     def reached_target(self):
-        """Handle logic when the object reaches its target (to be implemented in subclasses)."""
+        """Handle logic when the object reaches its target 
+        (to be implemented in subclasses)."""
         pass
 
 
@@ -364,7 +392,9 @@ class Hero(MovableObject):
             self.current_direction = self.direction_buffer
 
         if self.collides_with_wall((self.x, self.y)):
-            self.set_position(self.last_non_colliding_position[0], self.last_non_colliding_position[1])
+            self.set_position(
+                self.last_non_colliding_position[0], 
+                self.last_non_colliding_position[1])
 
         self.handle_cookie_pickup()
 
@@ -397,13 +427,23 @@ class Hero(MovableObject):
     def draw(self):
         """Draw the hero on the surface."""
         half_size = self._size / 2
-        pygame.draw.circle(self._surface, self._color, (self.x + half_size, self.y + half_size), half_size)
+        pygame.draw.circle(
+            self._surface, 
+            self._color, 
+            (self.x + half_size, self.y + half_size), 
+            half_size)
 
 
 class Ghost(MovableObject):
     """Class representing a ghost in the game."""
 
-    def __init__(self, in_surface, x, y, in_size: int, in_game_controller, in_color=(255, 0, 0)):
+    def __init__(
+            self, 
+            in_surface, 
+            x, y, 
+            in_size: int, 
+            in_game_controller, 
+            in_color=(255, 0, 0)):
         """Returns a ghost object.
 
         Args:
@@ -411,7 +451,8 @@ class Ghost(MovableObject):
             x (int): The x-coordinate of the ghost.
             y (int): The y-coordinate of the ghost.
             in_size (int): The size of the ghost.
-            in_game_controller: The game controller managing the ghost's behavior.
+            in_game_controller: The game controller 
+                managing the ghost's behavior.
             in_color (tuple): The color of the ghost (RGB).
         """
         super().__init__(in_surface, x, y, in_size, in_color, False)
@@ -583,7 +624,9 @@ class PacmanGameController:
         random_space = random.choice(self.reachable_spaces)
         current_maze_coord = translate_screen_to_maze(in_ghost.get_position())
 
-        path = self.p.get_path(current_maze_coord[1], current_maze_coord[0], random_space[1],
+        path = self.p.get_path(current_maze_coord[1], 
+                               current_maze_coord[0], 
+                               random_space[1],
                                random_space[0])
         test_path = [translate_maze_to_screen(item) for item in path]
         in_ghost.set_new_path(test_path)
@@ -615,21 +658,34 @@ if __name__ == "__main__":
     unified_size = 32
     pacman_game = PacmanGameController()
     size = pacman_game.size
-    game_renderer = GameRenderer(size[0] * unified_size, size[1] * unified_size)
+    game_renderer = GameRenderer(
+        size[0] * unified_size, 
+        size[1] * unified_size)
 
     for y, row in enumerate(pacman_game.numpy_maze):
         for x, column in enumerate(row):
             if column == 0:
-                game_renderer.add_wall(Wall(game_renderer, x, y, unified_size))
+                game_renderer.add_wall(Wall(
+                    game_renderer, 
+                    x, y, 
+                    unified_size))
     
     for cookie_space in pacman_game.cookie_spaces:
         translated = translate_maze_to_screen(cookie_space)
-        cookie = Cookie(game_renderer, translated[0] + unified_size / 2, translated[1] + unified_size / 2)
+        cookie = Cookie(
+            game_renderer, 
+            translated[0] + unified_size / 2, 
+            translated[1] + unified_size / 2
+        )
         game_renderer.add_cookie(cookie)
 
     for i, ghost_spawn in enumerate(pacman_game.ghost_spawns):
         translated = translate_maze_to_screen(ghost_spawn)
-        ghost = Ghost(game_renderer, translated[0], translated[1], unified_size, pacman_game,
+        ghost = Ghost(game_renderer, 
+                      translated[0], 
+                      translated[1], 
+                      unified_size, 
+                      pacman_game,
                       pacman_game.ghost_colors[i % 4])
         game_renderer.add_game_object(ghost)
 
