@@ -1,5 +1,6 @@
 import json
 import hashlib
+import string
 from typing import List
 
 """
@@ -26,18 +27,20 @@ def calculate_checksum(row_numbers: List[int]) -> str:
     return hashlib.md5(json.dumps(row_numbers).encode('utf-8')).hexdigest()
 
 
-def serialize_result(variant: int, checksum: str) -> None:
+def serialize_result(path: str, variant: int, checksum: str) -> None:
     """
-    Метод для сериализации результатов лабораторной пишите сами.
-    Вам нужно заполнить данными - номером варианта и контрольной суммой - файл, лежащий в папке с лабораторной.
-    Файл называется, очевидно, result.json.
-
-    ВНИМАНИЕ, ВАЖНО! На json натравлен github action, который проверяет корректность выполнения лабораторной.
-    Так что не перемещайте, не переименовывайте и не изменяйте его структуру, если планируете успешно сдать лабу.
-
-    :param variant: номер вашего варианта
-    :param checksum: контрольная сумма, вычисленная через calculate_checksum()
+    Serializes the result of program's execution.
+    Args:
+        path: path to 'result.json'
+        variant: task variant number
+        checksum: result of calculate_checksum()
     """
+    result = {
+        "variant": f"{variant}",
+        "checksum": f"{checksum}"
+    }
+    with open(path, 'w', encoding='utf-8') as json_file:
+        json.dump(result, json_file, ensure_ascii=False, indent=2)
     pass
 
 
