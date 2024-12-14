@@ -1,7 +1,6 @@
 import csv
-import json
 import re
-from typing import Any, Dict, List
+from typing import Dict, List
 
 import checksum
 
@@ -40,7 +39,7 @@ def process_csv(file_path: str) -> List[int]:
     Args:
         file_path: path to the .csv file
     Returns:
-        List of invalid rows
+        List of numbers of invalid rows
     """
     invalid_rows = []
     with open(file_path, mode='r', newline='', encoding="utf-16") as file:
