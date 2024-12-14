@@ -27,10 +27,11 @@ def row_check(row: List[str]) -> bool:
     Returns:
         True if an error was found, False otherwise.
     """
-    for i in range(10):
-        if not re.match(patterns[i], row[i]):
-            return False
-    return True
+    for i, value in enumerate(row):
+        field_name = list(patterns.keys())[i]
+        if not re.match(patterns[field_name], value):
+            return True
+    return False
 
 def process_csv(file_path: str) -> List[int]:
     """
@@ -49,3 +50,9 @@ def process_csv(file_path: str) -> List[int]:
             if not row_check(row):
                 invalid_rows.append(i)
     return invalid_rows
+
+if __name__ == "__main__":
+    invalid_row_numbers = process_csv("lab_3\\56.csv")
+    cs = checksum.calculate_checksum(invalid_row_numbers)
+    var = 56
+    checksum.serialize_result("lab_3\\result.json", var, cs)
