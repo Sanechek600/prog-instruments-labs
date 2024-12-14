@@ -46,7 +46,7 @@ def process_csv(file_path: str) -> List[int]:
         reader = csv.reader(file, delimiter=";")
         next(reader)
         for i, row in enumerate(reader, start=0):
-            if not row_check(row):
+            if row_check(row):
                 invalid_rows.append(i)
     return invalid_rows
 
