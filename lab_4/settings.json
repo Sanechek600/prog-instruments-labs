@@ -1,0 +1,4 @@
+{
+    "input":"lab_2/gen_results.json",
+    "output":"lab_2/result_of_NIST_tests.txt"
+}
