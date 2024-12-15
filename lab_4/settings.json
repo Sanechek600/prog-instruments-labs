@@ -1,4 +1,4 @@
 {
-    "input":"lab_2/gen_results.json",
-    "output":"lab_2/result_of_NIST_tests.txt"
+    "input":"lab_4/gen_results.json",
+    "output":"lab_4/result_of_NIST_tests.txt"
 }
