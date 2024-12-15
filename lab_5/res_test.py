@@ -41,7 +41,7 @@ def test_longest_run_of_ones_test():
         [("java", orig_results["Bit Frequency Test"])]
         )
 def test_bit_frequency_test_w_r(name, value):
-    file_path = "gen_results.json"
+    file_path = "lab_5/gen_results.json"
     with open(file_path, "r", encoding="utf-8") as file:
         data = json.load(file)
     sequence = data[name]
@@ -66,7 +66,7 @@ def test_bit_frequency_test_w_r_m(name, value):
         [("java", orig_results["Consecutive Bit Test"])]
         )
 def test_consecutive_bit_test_w_r(name, value):
-    file_path = "gen_results.json"
+    file_path = "lab_5/gen_results.json"
     with open(file_path, "r", encoding="utf-8") as file:
         data = json.load(file)
     sequence = data[name]
@@ -91,7 +91,7 @@ def test_consecutive_bit_test_w_r_m(name, value):
         [("java", orig_results["Longest Run of Ones Test"])]
         )
 def test_longest_run_of_ones_test_w_r_m(name, value):
-    file_path = "gen_results.json"
+    file_path = "lab_5/gen_results.json"
     with open(file_path, "r", encoding="utf-8") as file:
         data = json.load(file)
     sequence = data[name]
