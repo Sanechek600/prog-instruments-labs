@@ -33,7 +33,7 @@ def test_consecutive_bit_test():
 
 def test_longest_run_of_ones_test():
     frequency = 0.5358121524014012
-    assert frequency == longest_run_of_ones_test(c_sequence)
+    assert pytest.approx(frequency) == longest_run_of_ones_test(c_sequence)
 
 
 @pytest.mark.parametrize(
@@ -46,7 +46,7 @@ def test_bit_frequency_test_w_r(name, value):
         data = json.load(file)
     sequence = data[name]
     frequency = bit_frequency_test(sequence)
-    assert frequency == value
+    assert frequency == pytest.approx(value)
 
 @pytest.mark.parametrize(
         "name, value", 
@@ -71,7 +71,7 @@ def test_consecutive_bit_test_w_r(name, value):
         data = json.load(file)
     sequence = data[name]
     frequency = consecutive_bit_test(sequence)
-    assert frequency == value
+    assert frequency == pytest.approx(value)
 
 @pytest.mark.parametrize(
         "name, value", 
@@ -84,7 +84,7 @@ def test_consecutive_bit_test_w_r_m(name, value):
             data = json.load(file)
     sequence = data[name]
     frequency = consecutive_bit_test(sequence)
-    assert frequency == value
+    assert frequency == pytest.approx(value)
 
 @pytest.mark.parametrize(
         "name, value", 
@@ -109,4 +109,4 @@ def test_longest_run_of_ones_test_w_r(name, value):
             data = json.load(file)
     sequence = data[name]
     frequency = longest_run_of_ones_test(sequence)
-    assert frequency == value
+    assert frequency == pytest.approx(value)
