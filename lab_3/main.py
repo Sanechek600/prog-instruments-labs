@@ -7,7 +7,7 @@ import checksum
 
 patterns: Dict[str, str] = {
     "telephone": r"^\+7\-\(\d{3}\)\-\d{3}\-\d{2}\-\d{2}$",
-    "height": r"^(1\.[4-9]\d|2\.[0-4]\d|2\.50)$",
+    "height": r"^(1\.[4-9]\d|2\.[0-4]\d|2\.10)$",
     "inn": r"^\d{12}$",
     "identifier": r"^\d{2}-\d{2}/\d{2}$",
     "occupation": r"^[A-Za-zА-Яа-яёЁ\s-]+$",
