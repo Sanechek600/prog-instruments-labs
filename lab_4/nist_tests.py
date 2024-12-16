@@ -7,10 +7,10 @@ from scipy.special import gammaincc
 
 
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("process.log"),
+        logging.FileHandler("lab_4\\process.log"),
         logging.StreamHandler()
     ]
 )
